@@ -19,7 +19,6 @@ namespace Rest.ApiClient.Extensions.Registrations
                     .SetHandlerLifetime(TimeSpan.FromMinutes(5)).
                     AddRetryPolicy();
 
-            services.AddSingleton<AzureAdAuthenticationProvider>();
         }
     }
 }
