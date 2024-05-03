@@ -4,6 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Rest API Client</Title>
+    <PackageProjectUrl>https://github.com/harikrishnakada/Rest.ApiClient</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/harikrishnakada/Rest.ApiClient</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
