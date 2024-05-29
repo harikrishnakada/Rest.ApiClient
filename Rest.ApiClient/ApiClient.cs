@@ -8,11 +8,13 @@ namespace Rest.ApiClient
     {
         private readonly HttpClient _httpClient;
         private readonly IAuthenticationProvider _azureAdAuthenticationProvider;
+        private readonly IAuthenticationProvider _customAuthenticationHeaderProvider;
 
-        public ApiClient(HttpClient httpClient, AzureAdAuthenticationProvider azureAdAuthenticationProvider)
+        public ApiClient(HttpClient httpClient, AzureAdAuthenticationProvider azureAdAuthenticationProvider, CustomAuthenticationHeaderProvider customAuthenticationHeaderProvider)
         {
             _httpClient = httpClient;
             _azureAdAuthenticationProvider = azureAdAuthenticationProvider;
+            _customAuthenticationHeaderProvider = customAuthenticationHeaderProvider;
         }
 
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, AuthenticationKind authenticationKind)
@@ -42,6 +44,8 @@ namespace Rest.ApiClient
         {
             if (authenticationKind == AuthenticationKind.AzureAdAuthentication)
                 return _azureAdAuthenticationProvider;
+            else if(authenticationKind == AuthenticationKind.CustomAuthenticationHeaderProvider)
+                return _customAuthenticationHeaderProvider;
 
             return null;
         }

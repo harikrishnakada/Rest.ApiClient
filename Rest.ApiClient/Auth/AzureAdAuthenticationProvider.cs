@@ -21,16 +21,17 @@ namespace Rest.ApiClient.Auth
         {
             var clientId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
             var clientSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
-            var authority = string.Format(Environment.GetEnvironmentVariable("AUTHORITY_URI").ToString(),
-                Environment.GetEnvironmentVariable("AZURE_TENANT_ID").ToString());
+            var authority = string.Format(Environment.GetEnvironmentVariable("AUTHORITY_URI")?.ToString() ?? "",
+                Environment.GetEnvironmentVariable("AZURE_TENANT_ID")?.ToString() ?? "");
 
             var scopesString = Environment.GetEnvironmentVariable("SERVICE_PRINCIPAL_SCOPES");
             string[] scopes = scopesString?.Split(';') ?? new string[] { };
 
-            _app = ConfidentialClientApplicationBuilder.Create(clientId)
-                .WithClientSecret(clientSecret)
-                .WithAuthority(new Uri(authority))
-                .Build();
+            if (!string.IsNullOrEmpty(clientId) && !string.IsNullOrEmpty(clientSecret))
+                _app = ConfidentialClientApplicationBuilder.Create(clientId)
+                    .WithClientSecret(clientSecret)
+                    .WithAuthority(new Uri(authority))
+                    .Build();
             _scopes = scopes;
         }
 
