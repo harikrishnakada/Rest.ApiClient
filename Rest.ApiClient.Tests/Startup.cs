@@ -15,11 +15,14 @@ namespace Rest.ApiClient.Tests
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add your dependencies here
-           services.RegisterApiClient();
 
-           services.AddSingleton<AzureAdAuthenticationProvider>();
-           services.AddSingleton(x=> new CustomAuthenticationHeaderProvider("x-api-key", ""));
+            //services.AddSingleton<AzureAdAuthenticationProvider>();
+            //services.AddSingleton(x => new CustomAuthenticationHeaderProvider("x-api-key", ""));
+
+            // Add your dependencies here
+            services.RegisterApiClient();
+
+        
         }
     }
 

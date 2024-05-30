@@ -8,6 +8,7 @@
     <Title>Rest API Client</Title>
     <PackageProjectUrl>https://github.com/harikrishnakada/Rest.ApiClient</PackageProjectUrl>
     <RepositoryUrl>https://github.com/harikrishnakada/Rest.ApiClient</RepositoryUrl>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>

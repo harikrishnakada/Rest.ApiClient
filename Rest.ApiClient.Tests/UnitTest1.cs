@@ -17,7 +17,7 @@ namespace Rest.ApiClient.Tests
         public async Task Test1()
         {
             var rm = new HttpRequestMessage(HttpMethod.Get, "https://4943cc8d-c60e-4b81-89f6-be3c1482e17b.mock.pstmn.io/test");
-            var resa = await _apiClient.SendAsync(rm, AuthenticationKind.CustomAuthenticationHeaderProvider);
+            var resa = await _apiClient.SendAsync(rm, AuthenticationKind.None);
             resa.EnsureSuccessStatusCode();
         }
     }

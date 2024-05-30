@@ -15,9 +15,16 @@ namespace Rest.ApiClient.Extensions.Registrations
     {
         public static void RegisterApiClient(this IServiceCollection services)
         {
-            services.AddHttpClient<IApiClient, ApiClient>()
-                    .SetHandlerLifetime(TimeSpan.FromMinutes(5)).
-                    AddRetryPolicy();
+            var serviceProvider = services.BuildServiceProvider();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var azureAdAuthenticationProvider = scope.ServiceProvider.GetService<AzureAdAuthenticationProvider>();
+                var customAuthenticationHeaderProvider = scope.ServiceProvider.GetService<CustomAuthenticationHeaderProvider>();
+
+                services.AddHttpClient<IApiClient, ApiClient>(x=> new ApiClient(x, azureAdAuthenticationProvider, customAuthenticationHeaderProvider))
+                   .SetHandlerLifetime(TimeSpan.FromMinutes(5)).
+                   AddRetryPolicy();
+            }
 
         }
     }

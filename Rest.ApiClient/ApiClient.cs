@@ -10,7 +10,7 @@ namespace Rest.ApiClient
         private readonly IAuthenticationProvider _azureAdAuthenticationProvider;
         private readonly IAuthenticationProvider _customAuthenticationHeaderProvider;
 
-        public ApiClient(HttpClient httpClient, AzureAdAuthenticationProvider azureAdAuthenticationProvider, CustomAuthenticationHeaderProvider customAuthenticationHeaderProvider)
+        public ApiClient(HttpClient httpClient, AzureAdAuthenticationProvider? azureAdAuthenticationProvider, CustomAuthenticationHeaderProvider? customAuthenticationHeaderProvider)
         {
             _httpClient = httpClient;
             _azureAdAuthenticationProvider = azureAdAuthenticationProvider;
@@ -21,11 +21,10 @@ namespace Rest.ApiClient
         {
             var _authenticationProvider = GetAuthenticationProvider(authenticationKind);
 
-            if (_authenticationProvider == null)
+            if (_authenticationProvider != null)
             {
-                throw new UnauthorizedAccessException("The _authenticationProvider is null. Please provide a valid authenication provider.");
+                request = await _authenticationProvider.AcquireAndSetAuthenticationHeaderAsync(request);
             }
-            request = await _authenticationProvider.AcquireAndSetAuthenticationHeaderAsync(request);
             var response = await _httpClient.SendAsync(request);
             try
             {
@@ -44,7 +43,7 @@ namespace Rest.ApiClient
         {
             if (authenticationKind == AuthenticationKind.AzureAdAuthentication)
                 return _azureAdAuthenticationProvider;
-            else if(authenticationKind == AuthenticationKind.CustomAuthenticationHeaderProvider)
+            else if (authenticationKind == AuthenticationKind.CustomAuthenticationHeaderProvider)
                 return _customAuthenticationHeaderProvider;
 
             return null;
