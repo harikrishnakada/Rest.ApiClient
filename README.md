@@ -1,7 +1,17 @@
 # Rest.ApiClient
 
-Register the dependecies
+Register the dependencies in the order
 
+First register the necessary authentication providers.   
+If the Rest API uses Azure AD authentication, then use  
+`services.AddSingleton<AzureAdAuthenticationProvider>();`  
+
+if you need to register the custom authentication with a custom header and value. You can use  
+`services.AddSingleton(x => new CustomAuthenticationHeaderProvider("<autth_header_name>", "<auth_header_value>"));`  
+
+If there is no authentication required for the Rest API, no need to register any providers
+
+Now register the API client  
 `services.RegisterApiClient()`
 
 Inject the IApiClient to the class. 
