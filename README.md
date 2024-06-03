@@ -1,4 +1,8 @@
 # Rest.ApiClient
+You can install this as a nuget package from nuget packet manager with the package name **Rest.ApiClient** 
+
+<img width="969" alt="image" src="https://github.com/harikrishnakada/Rest.ApiClient/assets/26791983/ae2ee6ca-e40f-4a18-a220-f56d389d4b39">
+
 
 Register the dependencies in the order
 
